@@ -7,16 +7,14 @@ const SelectControl = styled.select`
   height: 24px;
   min-width: 24px;
   user-select: none;
+  padding-right: 16px;
   padding-left: 8px;
-  padding-right: 12px;
   box-sizing: content-box;
-  font-size: ${props => props.theme.pagination.fontSize};
-  color: ${props => props.theme.pagination.fontColor};
-  outline: none;
+  font-size: inherit;
+  color: inherit;
   border: none;
   background-color: transparent;
   appearance: none;
-  direction: ltr;
 
   &::-ms-expand {
     display: none;
@@ -29,20 +27,19 @@ const SelectControl = styled.select`
 
 const SelectWrapper = styled.div`
   position: relative;
-  flex-shrink: 0;
-  font-size: ${props => props.theme.pagination.fontSize};
-  color: ${props => props.theme.pagination.fontColor};
-  margin-top: 2px;
+  font-size: inherit;
+  color: inherit;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
   svg {
-    top: 0;
-    right: 0;
-    color: ${props => props.theme.pagination.fontColor};
-    position: absolute;
+    color: inherit;
     fill: currentColor;
+    position: absolute;
+    right: 0;
     width: 24px;
     height: 24px;
-    display: inline-block;
     user-select: none;
     pointer-events: none;
   }

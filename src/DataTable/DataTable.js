@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { memo, useReducer, useMemo, useCallback, useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import merge from 'lodash/merge';
@@ -34,6 +35,7 @@ const DataTable = memo(({
   highlightOnHover,
   pointerOnHover,
   dense,
+  paginationWrapperStyle,
   selectableRows,
   selectableRowsNoSelectAll,
   selectableRowsDisabledField,
@@ -277,9 +279,7 @@ const DataTable = memo(({
 
           <TableWrapper>
             {progressPending && !progressShowTableHead && (
-              <ProgressWrapper>
-                {progressComponent}
-              </ProgressWrapper>
+              <ProgressWrapper>{progressComponent}</ProgressWrapper>
             )}
 
             <Table disabled={disabled} className="rdt_Table">
@@ -290,11 +290,12 @@ const DataTable = memo(({
                     dense={dense}
                     disabled={progressPending}
                   >
-                    {selectableRows && (
-                      selectableRowsNoSelectAll
-                        ? <CellBase style={{ flex: '0 0 48px' }} />
-                        : <TableColCheckbox />
-                    )}
+                    {selectableRows &&
+                      (selectableRowsNoSelectAll ? (
+                        <CellBase style={{ flex: '0 0 48px' }} />
+                      ) : (
+                        <TableColCheckbox />
+                      ))}
                     {expandableRows && (
                       <CellBase style={{ flex: '0 0 56px' }} />
                     )}
@@ -314,9 +315,7 @@ const DataTable = memo(({
               )}
 
               {progressPending && progressShowTableHead && (
-                <ProgressWrapper>
-                  {progressComponent}
-                </ProgressWrapper>
+                <ProgressWrapper>{progressComponent}</ProgressWrapper>
               )}
 
               {!progressPending && data.length > 0 && (
@@ -358,21 +357,21 @@ const DataTable = memo(({
                 </TableBody>
               )}
             </Table>
-
-            {enabledPagination && (
-              <TableFooter className="rdt_TableFooter">
-                <Pagination
-                  onChangePage={handleChangePage}
-                  onChangeRowsPerPage={handleChangeRowsPerPage}
-                  rowCount={paginationTotalRows || data.length}
-                  currentPage={currentPage}
-                  rowsPerPage={rowsPerPage}
-                  theme={theme}
-                />
-              </TableFooter>
-            )}
           </TableWrapper>
         </ResponsiveWrapper>
+        {enabledPagination && (
+          <TableFooter className="rdt_TableFooter">
+            <Pagination
+              style={paginationWrapperStyle}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+              rowCount={paginationTotalRows || data.length}
+              currentPage={currentPage}
+              rowsPerPage={rowsPerPage}
+              theme={theme}
+            />
+          </TableFooter>
+        )}
       </DataTableProvider>
     </ThemeProvider>
   );

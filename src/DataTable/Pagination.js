@@ -11,6 +11,19 @@ const defaultComponentOptions = {
   noRowsPerPage: false,
 };
 
+const PaginationWrapper = styled.nav`
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+  padding-right: 8px;
+  padding-left: 8px;
+  width: 100%;
+  ${props => props.theme.pagination.style};
+`;
+
+
 const Button = styled.button`
   position: relative;
   display: block;
@@ -69,6 +82,7 @@ const Pagination = ({
   onChangeRowsPerPage,
   theme,
   currentPage,
+  style,
 }) => {
   const {
     paginationRowsPerPageOptions,
@@ -95,25 +109,20 @@ const Pagination = ({
   const handleRowsPerPage = useCallback(({ target }) => onChangeRowsPerPage(Number(target.value), currentPage), [currentPage, onChangeRowsPerPage]);
 
   return (
-    <>
+    <PaginationWrapper style={style}>
       {!noRowsPerPage && (
         <>
           <RowLabel>{rowsPerPageText}</RowLabel>
           <Select onChange={handleRowsPerPage} defaultValue={rowsPerPage}>
             {paginationRowsPerPageOptions.map(num => (
-              <option
-                key={num}
-                value={num}
-              >
+              <option key={num} value={num}>
                 {num}
               </option>
             ))}
           </Select>
         </>
       )}
-      <Range>
-        {range}
-      </Range>
+      <Range>{range}</Range>
       <PageList>
         <Button
           id="pagination-first-page"
@@ -151,7 +160,7 @@ const Pagination = ({
           {paginationIconLastPage}
         </Button>
       </PageList>
-    </>
+    </PaginationWrapper>
   );
 };
 
@@ -162,6 +171,7 @@ Pagination.propTypes = {
   onChangeRowsPerPage: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired,
   currentPage: PropTypes.number.isRequired,
+  style: PropTypes.any.isRequired,
 };
 
 export default Pagination;
