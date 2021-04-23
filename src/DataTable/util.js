@@ -31,6 +31,10 @@ export const getProperty = (row, selector, format, rowIndex) => {
   }
 
   return selector.split('.').reduce((acc, part) => {
+    if (!acc) {
+      return null;
+    }
+
     // O(n2) when querying for an array (e.g. items[0].name)
     // Likely, the object depth will be reasonable enough that performance is not a concern
     const arr = part.match(/[^\]\\[.]+/g);
