@@ -57,9 +57,9 @@ typings/
 # dotenv environment variables file
 .env
 
-# dist
-dist/*
-!dist/index.js
+# # dist
+# dist/*
+# !dist/index.js
 
 # Storybook
 storybook-static
